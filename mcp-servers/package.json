@@ -1,0 +1,22 @@
+{
+  "name": "mcp-servers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@houtini/gemini-mcp": "^1.0.0",
+    "@iflow-mcp/gdrive-mcp-server": "^0.6.2",
+    "@modelcontextprotocol/server-github": "^2025.4.8",
+    "@roychri/mcp-server-asana": "^1.7.0",
+    "@shinzolabs/gmail-mcp": "^1.7.4",
+    "@softeria/ms-365-mcp-server": "^0.30.0",
+    "@upstash/context7-mcp": "^2.1.0",
+    "notebooklm-mcp": "^1.2.1"
+  }
+}
