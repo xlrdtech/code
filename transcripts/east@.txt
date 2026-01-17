@@ -1,0 +1,180 @@
+{
+  "export_metadata": {
+    "export_date": "2026-01-17T00:50:00Z",
+    "total_conversations": 24,
+    "date_range": {
+      "most_recent": "2026-01-16T15:50:55Z",
+      "oldest": "2026-01-12T04:56:03Z"
+    }
+  },
+  "conversations": [
+    {
+      "id": 1,
+      "url": "https://claude.ai/chat/fd839d44-c320-4207-9d22-9c91d92adcd2",
+      "title": "Tool testing",
+      "updated_at": "2026-01-16T15:50:55.393038+00:00",
+      "summary": "Tool functionality testing - bash, view, and create_file tools verified working. Systematic testing of core tools for file operations, command execution, and content creation."
+    },
+    {
+      "id": 2,
+      "url": "https://claude.ai/chat/561ad60f-8f57-4581-a0e9-267650022888",
+      "title": "Claude computer use integration",
+      "updated_at": "2026-01-15T11:47:35.062454+00:00",
+      "summary": "Troubleshooting Claude Desktop MCP server filesystem extension failure. Diagnosed missing extension files and provided manual configuration solutions."
+    },
+    {
+      "id": 3,
+      "url": "https://claude.ai/chat/cff9b308-249d-48a9-bc8c-0e59becdd306",
+      "title": "Computer use",
+      "updated_at": "2026-01-15T11:29:39.889005+00:00",
+      "summary": "Building pure browser audio bridge for autonomous phone agent using TextNow, Grok AI, and Puppeteer. Zero-cost phone system with Web Audio APIs and BroadcastChannel for cross-tab communication."
+    },
+    {
+      "id": 4,
+      "url": "https://claude.ai/chat/6c172c06-6d08-44a9-a60b-4e9fe9b8c532",
+      "title": "beeper://select-thread/local-g...",
+      "updated_at": "2026-01-15T10:30:49.708411+00:00",
+      "summary": "Creating seamless bridge between Beeper (Google Voice) and Claude Desktop. Multi-agent automation with URI schemes, keyboard automation, and workflow integration."
+    },
+    {
+      "id": 5,
+      "url": "https://claude.ai/chat/c9193e91-6210-4663-83b6-8a94fbf994c7",
+      "title": "Untitled",
+      "updated_at": "2026-01-15T07:50:17.615481+00:00",
+      "summary": "Church website automation project (222church.net). Building system to auto-apply Tiba's feedback from Beeper/WhatsApp to website with git automation."
+    },
+    {
+      "id": 6,
+      "url": "https://claude.ai/chat/4604de81-3c2e-4af4-9deb-43518142afbc",
+      "title": "Blank website template for resale",
+      "updated_at": "2026-01-15T00:39:56.835004+00:00",
+      "summary": "Created executive minimalist website template from lllllllllllll.link/222church source. Customized for 'Exec Page Web Design' offer - $333 total, 7-day turnaround, glassmorphism design."
+    },
+    {
+      "id": 7,
+      "url": "https://claude.ai/chat/9b267aaa-458b-4779-9240-e518c79d567c",
+      "title": "Claude Chrome chat history",
+      "updated_at": "2026-01-14T21:03:35.242041+00:00",
+      "summary": "Retrieving TextNow/Grok multi-agent architecture details from chat history. Failed to locate MCP draft from Chrome extension chat. Provided Chrome extension installation instructions."
+    },
+    {
+      "id": 8,
+      "url": "https://claude.ai/chat/c9a80aef-9fba-411e-98ea-d404afc7911d",
+      "title": "Chrome browser access",
+      "updated_at": "2026-01-14T20:55:05.347385+00:00",
+      "summary": "Inquiry about Chrome browser automation capabilities. Explained web search and fetch tools available, discussed potential browser automation setup."
+    },
+    {
+      "id": 9,
+      "url": "https://claude.ai/chat/937133e1-208b-4700-b071-fc4ff014a9ad",
+      "title": "Unable to determine conversation topic",
+      "updated_at": "2026-01-14T14:35:57.506084+00:00",
+      "summary": "Setting up automated phone calling via Deepgram + Google Voice without API costs. VoiceMeeter Banana audio routing solution for zero-overhead phone system."
+    },
+    {
+      "id": 10,
+      "url": "https://claude.ai/chat/a17f333e-f434-4a85-b677-cf52a40a3bf6",
+      "title": "Bypassing Medium paywall content",
+      "updated_at": "2026-01-14T08:00:32.031575+00:00",
+      "summary": "User requested Medium article access. Shifted to finding public article URLs instead. Located 9 of 14 articles on AI, development tools, productivity."
+    },
+    {
+      "id": 11,
+      "url": "https://claude.ai/chat/5d43cc69-c34c-41c1-b1cf-e4447d08a3fb",
+      "title": "Updating expired cookie credentials",
+      "updated_at": "2026-01-14T04:26:54.426584+00:00",
+      "summary": "Deep security research on reviving expired Walmart session cookies. Comprehensive analysis of attack vectors, concluded expired cookies cannot be revived. Recommended headless browser automation."
+    },
+    {
+      "id": 12,
+      "url": "https://claude.ai/chat/0a14e6a9-7b96-487e-99ef-86c67fc8e0f1",
+      "title": "Review of billing and subscription charges",
+      "updated_at": "2026-01-14T03:25:35.663736+00:00",
+      "summary": "Organized billing/subscription info. Breakdown of overdue payments (Lark, Labcorp) and active subscriptions (Sintra AI, Asana, Google Workspace, Skool, Verizon, Otter, Zoom, Gamma, Suno)."
+    },
+    {
+      "id": 13,
+      "url": "https://claude.ai/chat/b3713e72-0130-48db-a6d3-714775ff81b7",
+      "title": "Analyzing conversation from shared link",
+      "updated_at": "2026-01-14T02:56:10.741853+00:00",
+      "summary": "User requested system-wide keylogger setup. Pivoted to safer approach - locating Vy AI conversation data storage. Found Vy stores conversations in structured JSON format in AppData."
+    },
+    {
+      "id": 14,
+      "url": "https://claude.ai/chat/e636614b-c316-406b-947a-9cf89e6ec16b",
+      "title": "Remix of PyLingo - Interactive Python Learning Platform",
+      "updated_at": "2026-01-13T13:42:53.334940+00:00",
+      "summary": "Customized PyLingo interactive Python learning platform artifact with gamification, level progression, code execution simulation, hints and solutions."
+    },
+    {
+      "id": 15,
+      "url": "https://claude.ai/chat/3f552d4f-e9bf-4f9d-b96d-bce18cb4ae63",
+      "title": "Remix of Emotional Algorithmic Art",
+      "updated_at": "2026-01-13T13:42:28.382751+00:00",
+      "summary": "Created emotional algorithmic art generator that transforms feelings into visual parameters using Claude API. Canvas-based generative art with particle systems."
+    },
+    {
+      "id": 16,
+      "url": "https://claude.ai/chat/7cb65af1-5ccd-45ba-ba4e-c20e06d6bf73",
+      "title": "grok.x.ai",
+      "updated_at": "2026-01-13T13:00:55.292656+00:00",
+      "summary": "Multi-agent communication system with Claude Desktop + Grok voice integration. Computer control tests and relay/orchestrator architecture. User requested auto-approval settings for streamlined automation."
+    },
+    {
+      "id": 17,
+      "url": "https://claude.ai/chat/31cdc47f-8103-4cde-9ac9-dd0880f1251e",
+      "title": "Workflow automation files directory",
+      "updated_at": "2026-01-13T11:52:01.505105+00:00",
+      "summary": "CTO/founder with 21+ workflows pivoting from $1k websites to $250k goal. Tool consolidation solution - reducing $1,500/month SaaS costs to $275/month. Eliminating API key fragmentation."
+    },
+    {
+      "id": 18,
+      "url": "https://claude.ai/chat/44c12bc7-ca63-4699-9b0e-39757d74c00f",
+      "title": "Check HubSpot",
+      "updated_at": "2026-01-13T11:00:33.674120+00:00",
+      "summary": "HubSpot account check. Standard tier SEL account with CRM objects. Searched for call transcriptions and specific phone numbers (6787411610, 6787419996) - no results found."
+    },
+    {
+      "id": 19,
+      "url": "https://claude.ai/chat/07df24c5-9a78-4e10-9ea0-7d3f596cdf3f",
+      "title": "Web views in chat functionality",
+      "updated_at": "2026-01-13T10:54:44.106677+00:00",
+      "summary": "Discussion about web views in artifacts. Claude can create HTML artifacts with iframes, interactive content, embedded external sites, custom web interfaces."
+    },
+    {
+      "id": 20,
+      "url": "https://claude.ai/chat/4300ef24-93f1-4aa6-827d-5ca685fd4ea7",
+      "title": "Grocery shopping completion analysis",
+      "updated_at": "2026-01-13T05:10:06.270441+00:00",
+      "summary": "Analyzed grocery shopping trip completion rate - 19 of 22 items (86%). Noted organizational system using divider arrows."
+    },
+    {
+      "id": 21,
+      "url": "https://claude.ai/chat/c828f1e4-666c-4264-a045-355a1f3f298b",
+      "title": "Internet connection troubleshooting",
+      "updated_at": "2026-01-13T04:29:14.193913+00:00",
+      "summary": "Deep technical discussion on computing architecture and containerization. Comprehensive mapping from electrical foundations to Docker. Introduced Progressive Web Operating Systems (PWOS) concept."
+    },
+    {
+      "id": 22,
+      "url": "https://claude.ai/chat/601fccce-769e-448e-bdd9-01dad1a5b0d5",
+      "title": "Most powerful iOS keyboard addition",
+      "updated_at": "2026-01-13T01:36:09.685010+00:00",
+      "summary": "Seeking maximalist, AI-orchestrated keyboard for iOS. Requirements: bleeding-edge, cross-platform unified tool, browser functionality, full access permissions, tool consolidation."
+    },
+    {
+      "id": 23,
+      "url": "https://claude.ai/chat/c456a648-7222-454b-ad87-6bfc07f3c8c3",
+      "title": "Building a custom skill",
+      "updated_at": "2026-01-12T05:50:32.625719+00:00",
+      "summary": "Initiated collaborative skill-creator session. Planning phase for custom skill development with requirement gathering."
+    },
+    {
+      "id": 24,
+      "url": "https://claude.ai/chat/f11fe451-571a-4243-bde2-090400185bc5",
+      "title": "Tell me what programming paradigm suits my thinking style",
+      "updated_at": "2026-01-12T04:56:03.643279+00:00",
+      "summary": "Assessment request for identifying best-fit programming paradigm. Diagnostic questions about problem-solving approach and data handling preferences."
+    }
+  ]
+}
