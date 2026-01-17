@@ -1,0 +1,89 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "description": "Context7 - Documentation and context management"
+    },
+    "notebooklm": {
+      "command": "npx",
+      "args": ["-y", "notebooklm-mcp"],
+      "description": "NotebookLM - Grounded AI research assistant",
+      "env": {
+        "NOTEBOOKLM_API_KEY": "your-api-key-here"
+      }
+    },
+    "gmail": {
+      "command": "npx",
+      "args": ["-y", "@shinzolabs/gmail-mcp"],
+      "description": "Gmail - Email management and integration",
+      "notes": "Run 'npx @shinzolabs/gmail-mcp auth' first to authenticate"
+    },
+    "microsoft-365": {
+      "command": "npx",
+      "args": ["-y", "@softeria/ms-365-mcp-server"],
+      "description": "Microsoft 365 - Outlook, OneDrive, Calendar, Excel",
+      "env": {
+        "AZURE_CLIENT_ID": "your-client-id",
+        "AZURE_CLIENT_SECRET": "your-client-secret",
+        "AZURE_TENANT_ID": "your-tenant-id"
+      },
+      "notes": "Requires Azure AD app registration"
+    },
+    "google-drive": {
+      "command": "npx",
+      "args": ["-y", "@iflow-mcp/gdrive-mcp-server"],
+      "description": "Google Drive - File management and access",
+      "notes": "Requires Google Cloud OAuth credentials"
+    },
+    "gemini": {
+      "command": "npx",
+      "args": ["-y", "@houtini/gemini-mcp"],
+      "description": "Google AI Gemini - AI model integration",
+      "env": {
+        "GOOGLE_API_KEY": "your-gemini-api-key"
+      }
+    },
+    "asana": {
+      "command": "npx",
+      "args": ["-y", "@roychri/mcp-server-asana"],
+      "description": "Asana - Task and project management",
+      "env": {
+        "ASANA_ACCESS_TOKEN": "your-asana-token"
+      }
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "description": "GitHub - Repository management (deprecated, use newer version)",
+      "env": {
+        "GITHUB_TOKEN": "your-github-token"
+      },
+      "notes": "This package is deprecated. Consider using the official GitHub app or newer alternatives."
+    }
+  },
+  "notes": {
+    "installation": "All packages are installed in /home/user/gu-ide-os/mcp-servers",
+    "auth_required": [
+      "Gmail: npx @shinzolabs/gmail-mcp auth",
+      "NotebookLM: Requires API key",
+      "Microsoft 365: Requires Azure AD app",
+      "Google Drive: Requires OAuth setup",
+      "Gemini: Requires Google AI API key",
+      "Asana: Requires Personal Access Token",
+      "GitHub: Requires Personal Access Token"
+    ],
+    "failed_installations": [
+      "@beeper/desktop-mcp - 403 error on jq-web dependency",
+      "mcp-server-kubernetes - Missing libsecret-1 system dependency",
+      "@larksuiteoapi/lark-mcp - Missing keytar system dependency"
+    ],
+    "not_found": [
+      "Docker MCP - No npm package found",
+      "iOS Shortcuts MCP - No npm package found",
+      "osascript MCP - Available but not on npm",
+      "Windows MCP - Python-based, not npm",
+      "Tasker/ADB MCP - Not found"
+    ]
+  }
+}

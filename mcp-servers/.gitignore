@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Package manager
+package-lock.json
+.package-lock.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+
+# Auth tokens and credentials
+.gmail-mcp/
+*.keys.json
+credentials.json
+
+# OS files
+.DS_Store
+Thumbs.db
