@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deepgram Duplex Voice</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0d0d0d;
+      color: #e8e8e8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+    h1 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .subtitle { font-size: 0.8rem; color: #666; margin-bottom: 2rem; }
+    .status {
+      font-size: 0.85rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      margin-bottom: 1.5rem;
+    }
+    .status.listening  { border-color: #22c55e; color: #22c55e; }
+    .status.speaking   { border-color: #f59e0b; color: #f59e0b; }
+    .status.idle       { border-color: #555; color: #888; }
+    .transcript-box {
+      width: 100%;
+      max-width: 640px;
+      min-height: 200px;
+      max-height: 400px;
+      overflow-y: auto;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .line { margin-bottom: 0.4rem; }
+    .line.interim { color: #666; }
+    .line.you   { color: #60a5fa; }
+    .line.ai    { color: #a78bfa; }
+    .controls { display: flex; gap: 1rem; }
+    button {
+      padding: 0.6rem 1.6rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+    button:disabled { opacity: 0.35; cursor: default; }
+    #startBtn { background: #22c55e; color: #000; }
+    #stopBtn  { background: #ef4444; color: #fff; }
+    .tts-row {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+      max-width: 640px;
+      margin-top: 1rem;
+    }
+    .tts-row input {
+      flex: 1;
+      padding: 0.55rem 0.9rem;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: #e8e8e8;
+      font-size: 0.9rem;
+    }
+    .tts-row button { background: #7c3aed; color: #fff; }
+  </style>
+</head>
+<body>
+  <h1>Deepgram Duplex Voice</h1>
+  <p class="subtitle">Nova-3 STT · Aura-2 TTS · Full-duplex</p>
+
+  <div class="status idle" id="status">Idle</div>
+
+  <div class="transcript-box" id="box"></div>
+
+  <div class="controls">
+    <button id="startBtn">Start Listening</button>
+    <button id="stopBtn" disabled>Stop</button>
+  </div>
+
+  <div class="tts-row">
+    <input id="ttsInput" type="text" placeholder="Type to speak via TTS..." />
+    <button id="ttsBtn">Speak</button>
+  </div>
+
+  <script>
+    const statusEl   = document.getElementById('status');
+    const box        = document.getElementById('box');
+    const startBtn   = document.getElementById('startBtn');
+    const stopBtn    = document.getElementById('stopBtn');
+    const ttsInput   = document.getElementById('ttsInput');
+    const ttsBtn     = document.getElementById('ttsBtn');
+
+    let ws, mediaStream, audioCtx, processor, source;
+    let ttsQueue = [];   // ArrayBuffer chunks from server TTS stream
+    let ttsPlaying = false;
+
+    // ── WebSocket setup ────────────────────────────────────────────────────
+    function connect() {
+      const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+      ws = new WebSocket(`${proto}://${location.host}`);
+      ws.binaryType = 'arraybuffer';
+
+      ws.addEventListener('open', () => {
+        ws.send(JSON.stringify({ type: 'start' }));
+      });
+
+      ws.addEventListener('message', (ev) => {
+        if (typeof ev.data === 'string') {
+          const msg = JSON.parse(ev.data);
+          handleControl(msg);
+        } else {
+          // Binary: TTS PCM chunk
+          ttsQueue.push(ev.data);
+          if (!ttsPlaying) playNextTTSChunk();
+        }
+      });
+
+      ws.addEventListener('close', () => setStatus('idle', 'Disconnected'));
+      ws.addEventListener('error', () => setStatus('idle', 'WS Error'));
+    }
+
+    // ── Control messages ───────────────────────────────────────────────────
+    function handleControl(msg) {
+      switch (msg.type) {
+        case 'transcript':
+          renderTranscript(msg.text, msg.isFinal);
+          break;
+        case 'tts_start':
+          setStatus('speaking', 'Speaking...');
+          break;
+        case 'tts_end':
+          setStatus('listening', 'Listening');
+          break;
+        case 'utterance_end':
+          // utterance boundary — clear interim line
+          break;
+        case 'error':
+          appendLine('Error: ' + msg.message, 'interim');
+          break;
+      }
+    }
+
+    // ── Transcript rendering ───────────────────────────────────────────────
+    let interimEl = null;
+    function renderTranscript(text, isFinal) {
+      if (isFinal) {
+        if (interimEl) { interimEl.remove(); interimEl = null; }
+        appendLine('[You] ' + text, 'you');
+      } else {
+        if (!interimEl) {
+          interimEl = document.createElement('div');
+          interimEl.className = 'line interim';
+          box.appendChild(interimEl);
+        }
+        interimEl.textContent = text;
+        box.scrollTop = box.scrollHeight;
+      }
+    }
+
+    function appendLine(text, cls = '') {
+      const div = document.createElement('div');
+      div.className = 'line ' + cls;
+      div.textContent = text;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    // ── TTS audio playback (linear16 24kHz PCM from server) ────────────────
+    async function playNextTTSChunk() {
+      if (!ttsQueue.length) { ttsPlaying = false; return; }
+      ttsPlaying = true;
+      const buf = ttsQueue.shift();
+
+      if (!audioCtx) audioCtx = new AudioContext({ sampleRate: 24000 });
+      if (audioCtx.state === 'suspended') await audioCtx.resume();
+
+      // Convert raw linear16 (little-endian) → Float32
+      const int16 = new Int16Array(buf);
+      const float32 = new Float32Array(int16.length);
+      for (let i = 0; i < int16.length; i++) float32[i] = int16[i] / 32768;
+
+      const audioBuf = audioCtx.createBuffer(1, float32.length, 24000);
+      audioBuf.copyToChannel(float32, 0);
+
+      const src = audioCtx.createBufferSource();
+      src.buffer = audioBuf;
+      src.connect(audioCtx.destination);
+      src.onended = playNextTTSChunk;
+      src.start();
+    }
+
+    // ── Mic capture → server (PCM 16kHz linear16) ─────────────────────────
+    async function startMic() {
+      mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioCtx = new AudioContext({ sampleRate: 16000 });
+      source = audioCtx.createMediaStreamSource(mediaStream);
+
+      await audioCtx.audioWorklet.addModule(URL.createObjectURL(new Blob([`
+        class PcmProcessor extends AudioWorkletProcessor {
+          process(inputs) {
+            const ch = inputs[0][0];
+            if (!ch) return true;
+            const i16 = new Int16Array(ch.length);
+            for (let i = 0; i < ch.length; i++) {
+              i16[i] = Math.max(-32768, Math.min(32767, ch[i] * 32768));
+            }
+            this.port.postMessage(i16.buffer, [i16.buffer]);
+            return true;
+          }
+        }
+        registerProcessor('pcm-processor', PcmProcessor);
+      `], { type: 'application/javascript' })));
+
+      processor = new AudioWorkletNode(audioCtx, 'pcm-processor');
+      processor.port.onmessage = (e) => {
+        if (ws && ws.readyState === WebSocket.OPEN) {
+          ws.send(e.data);
+        }
+      };
+      source.connect(processor);
+    }
+
+    function stopMic() {
+      if (processor) processor.disconnect();
+      if (source)    source.disconnect();
+      if (mediaStream) mediaStream.getTracks().forEach(t => t.stop());
+      if (ws) { ws.send(JSON.stringify({ type: 'stop' })); ws.close(); }
+    }
+
+    // ── UI ─────────────────────────────────────────────────────────────────
+    function setStatus(cls, text) {
+      statusEl.className = 'status ' + cls;
+      statusEl.textContent = text;
+    }
+
+    startBtn.addEventListener('click', async () => {
+      startBtn.disabled = true;
+      stopBtn.disabled  = false;
+      setStatus('listening', 'Connecting...');
+      connect();
+      await startMic();
+      setStatus('listening', 'Listening');
+    });
+
+    stopBtn.addEventListener('click', () => {
+      stopBtn.disabled  = true;
+      startBtn.disabled = false;
+      setStatus('idle', 'Idle');
+      stopMic();
+    });
+
+    ttsBtn.addEventListener('click', () => {
+      const text = ttsInput.value.trim();
+      if (!text || !ws || ws.readyState !== WebSocket.OPEN) return;
+      appendLine('[AI]  ' + text, 'ai');
+      ws.send(JSON.stringify({ type: 'tts', text }));
+      ttsInput.value = '';
+    });
+
+    ttsInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') ttsBtn.click();
+    });
+  </script>
+</body>
+</html>

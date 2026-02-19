@@ -1,0 +1,20 @@
+{
+  "name": "deepgram-voice",
+  "version": "1.0.0",
+  "description": "Full-duplex voice interface using Deepgram STT + TTS",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "server": "node src/server.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "@deepgram/sdk": "^3.9.0",
+    "dotenv": "^16.4.5",
+    "mic": "^2.1.2",
+    "speaker": "^0.5.5",
+    "ws": "^8.18.0",
+    "express": "^4.21.2"
+  }
+}
