@@ -8,7 +8,6 @@
 
 import { createClient, LiveTranscriptionEvents } from '@deepgram/sdk';
 import { Readable } from 'stream';
-import Speaker from 'speaker';
 
 export class DeepgramVoice {
   constructor(apiKey) {
@@ -130,6 +129,7 @@ export class DeepgramVoice {
    * @param {object} [speakerOpts] - Options passed to node-speaker
    */
   async speak(text, speakerOpts = {}) {
+    const { default: Speaker } = await import('speaker');
     const webStream = await this.synthTTS(text);
 
     return new Promise((resolve, reject) => {
